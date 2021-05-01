@@ -34,12 +34,10 @@ public class Jugar {
 	
 	private void inicializar (KieSession kSession, boolean test){
 		
-		Secret secreto = new Secret();
-		secreto.setDigitoUno(1);
-		secreto.setDigitoDos(2);
-		secreto.setDigitoTres(3);
-		secreto.setDigitoCuatro(4);
-		kSession.insert(secreto);
+		Jugada jugada = new Jugada();
+		jugada.setDigitoUno(0);
+		jugada.setDigitoDos(1);
+		kSession.insert(jugada);
 	}
 	
 	public static void main(String[] args) {
