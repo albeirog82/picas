@@ -20,6 +20,12 @@ public class Jugada {
 		this.fijas = 0;
 	}
 	
+	public void crear_valores_jugada(){
+		this.digitoUno = 0; 
+		this.digitoDos = 0; 
+		System.out.println("El valor a adivinar es " + this.digitoUno + this.digitoDos + " ?");
+	}
+	
 	public Jugada(int picas, int fijas) {
 		this.picas = picas;
 		this.fijas = fijas;

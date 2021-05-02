@@ -1,24 +1,9 @@
 package com.kms.grupo02
-import javax.swing.JOptionPane;
 
-rule "Finalizar"
+rule "Nada"
 	when
-		j : Jugada (fijas == 2)
+		j : Jugada (picas==0, fijas == 0)
 	then
-        System.out.println("Hay un ganador");
-end
-
-rule "Datos jugada"
-	when
-		j : Jugada ()
-	then
-        System.out.println("Mostrar jugadas");
-        System.out.println("Preguntar picas y fijas");
-        String picas = JOptionPane.showInputDialog("Picas");
-    	String fijas = JOptionPane.showInputDialog("Fijas");
-    	int p = Integer.parseInt (picas);
-		int f = Integer.parseInt (fijas);
-    	Jugada jugada =  new Jugada(p, f);
-        insert (jugada);
+        System.out.println("Regla para 0 y 0 es decir nada ");
 end
 
