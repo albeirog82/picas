@@ -55,16 +55,20 @@ public class Jugar {
 		int mi_puntaje = puntaje_base(valores, dimension);  
 		
 		System.out.println(mi_puntaje);
-		Casilla Matriz[][];
-		Matriz = new Casilla[10][3];
+		//Casilla Matriz[][];
+		Casilla[][] matriz = new Casilla[valores][dimension];
 		
-		System.out.println(Matriz[0]);
-		System.out.println(Matriz[0][0]);
 		
-		for(int i=0;  i < Matriz.length; i++){
+		
+		//System.out.println(matriz[0]);
+		//System.out.println(matriz[0][0]);
+		
+		for(int i=0;  i < matriz.length; i++){
 			for(int j=0;  j < dimension; j++){
-				Matriz[i][j].setPuntaje(mi_puntaje);
-				Matriz[i][j].setEstado("sin_usar");
+				matriz[i][j] = new Casilla();
+				matriz[i][j].setPuntaje(mi_puntaje);
+				matriz[i][j].setEstado("sin_usar");
+				System.out.println(i);
 			}
 		}
 				
