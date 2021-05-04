@@ -40,37 +40,7 @@ public class Jugar {
         }
 	}
 	
-	// 10, 2
-	private int puntaje_base(int valores, int casillas){
-		int retornar = valores;
-		
-		for(int c=1; c<casillas; c++){
-			int v = valores-c;
-			retornar = retornar*v;
-		}
-		
-		return retornar/valores; 
-		
-	}
-	
-	private Casilla[][] crear_matriz_iniciada(int valores, int dimension){
-		
-		int mi_puntaje = puntaje_base(valores, dimension);  
-		
-		System.out.println(mi_puntaje);
-		
-		Casilla[][] matriz = new Casilla[valores][dimension];
-		
-		for(int i=0;  i < matriz.length; i++){
-			for(int j=0;  j < dimension; j++){
-				matriz[i][j] = new Casilla();
-				matriz[i][j].setPuntaje(mi_puntaje);
-				matriz[i][j].setEstado("sin_usar");
-			}
-		}
-		
-		return matriz; 
-	}
+
 	
 	private void inicializar (KieSession kSession, boolean test){
 		
@@ -92,18 +62,15 @@ public class Jugar {
     	    StatelessKieSession kSession = kContainer.newStatelessKieSession();	
         	//KieSession kSession = kContainer.newKieSession("ksession-rules");
 
-    	    int valores = 10; 
-    	    int dimension = 2;
-    	    
-    	    System.out.println("Iniciar matriz");
-    	    Casilla[][] matriz = crear_matriz_iniciada(valores, dimension);
-    	    System.out.println("Matriz creada");
+    	    //Remover esta variable	
+    	    int dimension = 2; 
     	    
     	    List<Jugada> listaJugadas = new ArrayList<Jugada>();
     	    
     	    while(true){
         	    Jugada jugada = new Jugada();
-        	    jugada.crear_valores_jugada();
+        	    System.out.println("Obtener una jugada");
+        	    jugada.crear_valores_jugada(); 
         	    String picas = JOptionPane.showInputDialog("Cuantas picas identifica:");
             	String fijas = JOptionPane.showInputDialog("Cuantas fijas identifica:");
             	if(Integer.parseInt(fijas) == dimension){
@@ -130,6 +97,10 @@ public class Jugar {
 		System.out.println("Hola");
 		Jugar juego = new Jugar();
     	juego.ejecutar_stateless();
+		//Jugada jugada1 = new Jugada();
+		//jugada1.probar(1);
+		//Jugada jugada2 = new Jugada();
+		//jugada2.probar(2);
 	}
 	
 }

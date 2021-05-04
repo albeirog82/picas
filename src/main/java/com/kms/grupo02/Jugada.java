@@ -20,10 +20,50 @@ public class Jugada {
 		this.fijas = 0;
 	}
 	
+	public void probar(int valor){
+		Tablero tablero = Tablero.getInstance();
+		System.out.println("Valor prueba antes " + tablero.getValorPrueba());
+		tablero.setValorPrueba(valor);
+		System.out.println("Valor prueba despues " + tablero.getValorPrueba());
+	}
+	
 	public void crear_valores_jugada(){
-		this.digitoUno = 0; 
-		this.digitoDos = 0; 
+		
+		Tablero tablero = Tablero.getInstance();
+		
+		//Obtener primera cifra
+		this.digitoUno = null;
+		this.digitoDos = null;
+		
+		for(int valores = 0; valores < tablero.getMatriz().length; valores++ ){
+			if(tablero.getMatriz()[valores][0].getEstado().equals(Casilla.SIN_USAR)){
+				this.digitoUno = valores; 
+				break;
+			}
+		}
+		
+		for(int valores = 0; valores < tablero.getMatriz().length; valores++ ){
+			if(tablero.getMatriz()[valores][1].getEstado().equals(Casilla.SIN_USAR) && this.digitoUno != valores){
+				this.digitoDos = valores; 
+				break;
+			}
+		}
+		
 		System.out.println("El valor a adivinar es " + this.digitoUno + this.digitoDos + " ?");
+		
+	}
+	
+	public void descartar(Integer primerDigito, Integer segundoDigito){
+		Tablero tablero = Tablero.getInstance();
+		
+		tablero.getMatriz()[primerDigito][0].setEstado(Casilla.DESCARTADO);
+		tablero.getMatriz()[primerDigito][1].setEstado(Casilla.DESCARTADO);
+		tablero.getMatriz()[segundoDigito][0].setEstado(Casilla.DESCARTADO);
+		tablero.getMatriz()[segundoDigito][1].setEstado(Casilla.DESCARTADO);
+		//tablero.setEstadoCasilla(primerDigito, 0, Casilla.DESCARTADO);
+		
+		System.out.println("descartar " + primerDigito + segundoDigito);
+			
 	}
 	
 	public Jugada(int picas, int fijas) {
@@ -81,6 +121,7 @@ public class Jugada {
 		this.fijas = fijas;
 	}
 
+	
 
 
 }
