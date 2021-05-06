@@ -71,6 +71,9 @@ public class Jugar {
         	    Jugada jugada = new Jugada();
         	    System.out.println("Obtener una jugada");
         	    jugada.crear_valores_jugada(); 
+        	    if(jugada.esDuplicada(listaJugadas)){
+        	    	jugada.crear_valores_jugada();
+        	    }
         	    String picas = JOptionPane.showInputDialog("Cuantas picas identifica:");
             	String fijas = JOptionPane.showInputDialog("Cuantas fijas identifica:");
             	if(Integer.parseInt(fijas) == dimension){

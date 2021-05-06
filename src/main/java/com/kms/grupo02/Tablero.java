@@ -92,6 +92,12 @@ public class Tablero {
 		System.out.println("Se escribio en la matriz");
 	}
 	
+	public void imprimirMatriz(){
+		for(int i=0; i<this.matriz.length; i++){
+			System.out.println(i + "|" + this.matriz[i][0].getPuntaje() + "|" + this.matriz[i][1].getPuntaje());
+		}
+	}
+	
 	
 	
 }

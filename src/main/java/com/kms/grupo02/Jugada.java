@@ -1,5 +1,11 @@
 package com.kms.grupo02;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.IntStream;
+
+import org.dmg.pmml.pmml_4_2.descr.Matrix;
 
 public class Jugada {
 	
@@ -18,6 +24,8 @@ public class Jugada {
 	public Jugada() {
 		this.picas = 0; 
 		this.fijas = 0;
+		this.digitoUno = null;
+		this.digitoDos = null; 
 	}
 	
 	public void probar(int valor){
@@ -31,39 +39,88 @@ public class Jugada {
 		
 		Tablero tablero = Tablero.getInstance();
 		
-		//Obtener primera cifra
-		this.digitoUno = null;
-		this.digitoDos = null;
-		
-		for(int valores = 0; valores < tablero.getMatriz().length; valores++ ){
-			if(tablero.getMatriz()[valores][0].getEstado().equals(Casilla.SIN_USAR)){
-				this.digitoUno = valores; 
-				break;
+		if (this.digitoUno == null && this.digitoDos == null){
+			for(int valores = 0; valores < tablero.getMatriz().length; valores++ ){
+				if(tablero.getMatriz()[valores][0].getEstado().equals(Casilla.SIN_USAR)){
+					this.digitoUno = valores; 
+					break;
+				}
+			}
+			
+			for(int valores = 0; valores < tablero.getMatriz().length; valores++ ){
+				if(tablero.getMatriz()[valores][1].getEstado().equals(Casilla.SIN_USAR) && this.digitoUno != valores){
+					this.digitoDos = valores; 
+					break;
+				}
+			}
+			
+			if (this.digitoUno == null && this.digitoDos == null){
+				this.digitoUno = 0;
+				for(int i = 0; i < tablero.getMatriz().length; i++ ){
+					if(tablero.getMatriz()[i][0].getPuntaje() > tablero.getMatriz()[this.digitoUno][0].getPuntaje())  {
+						this.digitoUno = i; 
+					}
+				}
+				
+				this.digitoDos = 0;
+				for(int i = 0; i < tablero.getMatriz().length; i++ ){
+					if(tablero.getMatriz()[i][1].getPuntaje() > tablero.getMatriz()[this.digitoDos][1].getPuntaje())  {
+						this.digitoDos = i; 
+					}
+				}
+				
+			}
+			
+		}else{
+			this.digitoDos = this.digitoDos + 1; 
+			for(int i = this.digitoDos; i < tablero.getMatriz().length; i++ ){
+				if(tablero.getMatriz()[i][1].getPuntaje() > tablero.getMatriz()[this.digitoDos][1].getPuntaje())  {
+					this.digitoDos = i; 
+				}
 			}
 		}
 		
-		for(int valores = 0; valores < tablero.getMatriz().length; valores++ ){
-			if(tablero.getMatriz()[valores][1].getEstado().equals(Casilla.SIN_USAR) && this.digitoUno != valores){
-				this.digitoDos = valores; 
-				break;
-			}
-		}
+				
+		
+		
+		System.out.println("Matriz:");
+		
+		tablero.imprimirMatriz();
 		
 		System.out.println("El valor a adivinar es " + this.digitoUno + this.digitoDos + " ?");
 		
 	}
 	
-	public void descartar(Integer primerDigito, Integer segundoDigito){
+	public void actualizarEstado(Integer digito, Integer casilla, String estado){
+		
 		Tablero tablero = Tablero.getInstance();
 		
-		tablero.getMatriz()[primerDigito][0].setEstado(Casilla.DESCARTADO);
-		tablero.getMatriz()[primerDigito][1].setEstado(Casilla.DESCARTADO);
-		tablero.getMatriz()[segundoDigito][0].setEstado(Casilla.DESCARTADO);
-		tablero.getMatriz()[segundoDigito][1].setEstado(Casilla.DESCARTADO);
-		//tablero.setEstadoCasilla(primerDigito, 0, Casilla.DESCARTADO);
-		
-		System.out.println("descartar " + primerDigito + segundoDigito);
+		tablero.getMatriz()[digito][casilla].setEstado(estado);
 			
+	}
+	
+	public void actualizarPuntaje(Integer digito, Integer casilla, Integer puntaje){
+		
+		Tablero tablero = Tablero.getInstance();
+		
+		if (puntaje == 0) {
+			tablero.getMatriz()[digito][casilla].setPuntaje(puntaje);
+		}else{
+			tablero.getMatriz()[digito][casilla].setPuntaje(tablero.getMatriz()[digito][casilla].getPuntaje() + puntaje);
+		}
+		
+			
+	}
+	
+	public boolean esDuplicada(List<Jugada> listaJugadas){
+		for (int i = 0; i < listaJugadas.size(); i++) {
+		    Jugada jugada = listaJugadas.get(i);
+		    if(jugada.digitoUno == this.digitoUno && jugada.digitoDos == this.digitoDos ){
+		    	System.out.println("Se ha encontrado una jugada duplicada");
+		    	return true;
+		    }
+		}
+		return false; 
 	}
 	
 	public Jugada(int picas, int fijas) {
