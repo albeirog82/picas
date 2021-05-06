@@ -13,7 +13,7 @@ public class Casilla {
 	
 	public Casilla(){
 		this.puntaje = 0;
-		this.estado = "sin_usar";
+		this.estado = SIN_USAR;
 	}
 	
 
@@ -30,7 +30,7 @@ public class Casilla {
 	}
 
 	public void setEstado(String estado) {
-		estado = estado;
+		this.estado = estado;
 	}  
 	
 	
