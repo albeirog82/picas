@@ -62,10 +62,9 @@ public class Jugar {
     	    StatelessKieSession kSession = kContainer.newStatelessKieSession();	
         	//KieSession kSession = kContainer.newKieSession("ksession-rules");
 
-    	    //Remover esta variable	
-    	    int dimension = 2; 
-    	    
     	    List<Jugada> listaJugadas = new ArrayList<Jugada>();
+    	    
+    	    Tablero tablero = Tablero.getInstance();
     	    
     	    while(true){
         	    Jugada jugada = new Jugada();
@@ -73,10 +72,12 @@ public class Jugar {
         	    jugada.crear_valores_jugada(); 
         	    if(jugada.esDuplicada(listaJugadas)){
         	    	jugada.crear_valores_jugada();
-        	    }
+        	    }        	    
+        	    jugada.verJugada();
+        	    System.out.println("Jugadas: " + (listaJugadas.size()+1));
         	    String picas = JOptionPane.showInputDialog("Cuantas picas identifica:");
             	String fijas = JOptionPane.showInputDialog("Cuantas fijas identifica:");
-            	if(Integer.parseInt(fijas) == dimension){
+            	if(Integer.parseInt(fijas) == tablero.getDimension()){
             		System.out.println("Se adivinó el numero, el juego termino");
             		break; 
             	}else{
@@ -86,6 +87,8 @@ public class Jugar {
             		kSession.execute(jugada);
             		//Agregar la jugada completada a la lista de jugadas
             		listaJugadas.add(jugada);
+            		
+            		
             	}
     	    }
     	        	        	    

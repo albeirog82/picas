@@ -4,6 +4,7 @@ rule "Nada"
 	when
 		$j : Jugada (picas==0, fijas==0)
 	then
+		
         $j.actualizarEstado($j.getDigitoUno(), 0, Casilla.DESCARTADO);
         $j.actualizarPuntaje($j.getDigitoUno(), 0, 0);   
         $j.actualizarEstado($j.getDigitoUno(), 1, Casilla.DESCARTADO);
@@ -11,7 +12,8 @@ rule "Nada"
         $j.actualizarEstado($j.getDigitoDos(), 0, Casilla.DESCARTADO);
         $j.actualizarPuntaje($j.getDigitoDos(), 0, 0);
         $j.actualizarEstado($j.getDigitoDos(), 1, Casilla.DESCARTADO);
-        $j.actualizarPuntaje($j.getDigitoDos(), 1, 0);     
+        $j.actualizarPuntaje($j.getDigitoDos(), 1, 0);
+
 end
 
 
@@ -35,11 +37,120 @@ rule "Una fija"
 		$j : Jugada (picas==0, fijas==1)
 	then
         $j.actualizarEstado($j.getDigitoUno(), 0, Casilla.PICA_FIJA);
-        $j.actualizarPuntaje($j.getDigitoUno(), 0, 9);   
+        $j.actualizarPuntaje($j.getDigitoUno(), 0, (504*3));
         $j.actualizarEstado($j.getDigitoUno(), 1, Casilla.DESCARTADO);
         $j.actualizarPuntaje($j.getDigitoUno(), 1, 0);  
+        $j.actualizarEstado($j.getDigitoUno(), 2, Casilla.DESCARTADO);
+        $j.actualizarPuntaje($j.getDigitoUno(), 2, 0);
+        $j.actualizarEstado($j.getDigitoUno(), 3, Casilla.DESCARTADO);
+        $j.actualizarPuntaje($j.getDigitoUno(), 3, 0);  
         $j.actualizarEstado($j.getDigitoDos(), 0, Casilla.DESCARTADO);
         $j.actualizarPuntaje($j.getDigitoDos(), 0, 0);
         $j.actualizarEstado($j.getDigitoDos(), 1, Casilla.PICA_FIJA);
-        $j.actualizarPuntaje($j.getDigitoDos(), 1, 9);  
+        $j.actualizarPuntaje($j.getDigitoDos(), 1, (504*3));  
+        $j.actualizarEstado($j.getDigitoDos(), 2, Casilla.DESCARTADO);
+        $j.actualizarPuntaje($j.getDigitoDos(), 2, 0);
+        $j.actualizarEstado($j.getDigitoDos(), 3, Casilla.DESCARTADO);
+        $j.actualizarPuntaje($j.getDigitoDos(), 3, 0);  
+        $j.actualizarEstado($j.getDigitoTres(), 0, Casilla.DESCARTADO);
+        $j.actualizarPuntaje($j.getDigitoTres(), 0, 0);
+        $j.actualizarEstado($j.getDigitoTres(), 1, Casilla.DESCARTADO);
+        $j.actualizarPuntaje($j.getDigitoTres(), 1, 0);  
+        $j.actualizarEstado($j.getDigitoTres(), 2, Casilla.PICA_FIJA);
+        $j.actualizarPuntaje($j.getDigitoTres(), 2, (504*3));
+        $j.actualizarEstado($j.getDigitoTres(), 3, Casilla.DESCARTADO);
+        $j.actualizarPuntaje($j.getDigitoTres(), 3, 0);          
+        $j.actualizarEstado($j.getDigitoCuatro(), 0, Casilla.DESCARTADO);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 0, 0);
+        $j.actualizarEstado($j.getDigitoCuatro(), 1, Casilla.DESCARTADO);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 1, 0);  
+        $j.actualizarEstado($j.getDigitoCuatro(), 2, Casilla.DESCARTADO);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 2, 0);
+        $j.actualizarEstado($j.getDigitoCuatro(), 3, Casilla.PICA_FIJA);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 3, (504*3));
+                          
+end
+
+
+rule "Una pica y 1 fija"
+	when
+		$j : Jugada (picas==1, fijas==1)
+	then
+        $j.actualizarEstado($j.getDigitoUno(), 0, Casilla.PICA_FIJA);
+        $j.actualizarPuntaje($j.getDigitoUno(), 0, (504*3)); 
+        $j.actualizarEstado($j.getDigitoUno(), 1, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoUno(), 1, (504/3));  
+        $j.actualizarEstado($j.getDigitoUno(), 2, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoUno(), 2, (504/3));
+        $j.actualizarEstado($j.getDigitoUno(), 3, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoUno(), 3, (504/3));
+        $j.actualizarEstado($j.getDigitoDos(), 1, Casilla.PICA_FIJA);
+        $j.actualizarPuntaje($j.getDigitoDos(), 1, (504*3));
+        $j.actualizarEstado($j.getDigitoDos(), 0, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoDos(), 0, (504/3));
+        $j.actualizarEstado($j.getDigitoDos(), 2, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoDos(), 2, (504/3));
+        $j.actualizarEstado($j.getDigitoDos(), 3, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoDos(), 3, (504/3));
+        $j.actualizarEstado($j.getDigitoTres(), 2, Casilla.PICA_FIJA);
+        $j.actualizarPuntaje($j.getDigitoTres(), 2, (504*3));
+        $j.actualizarEstado($j.getDigitoTres(), 0, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoTres(), 0, (504/3));
+        $j.actualizarEstado($j.getDigitoTres(), 1, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoTres(), 1, (504/3));
+        $j.actualizarEstado($j.getDigitoTres(), 3, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoTres(), 3, (504/3));
+        $j.actualizarEstado($j.getDigitoCuatro(), 3, Casilla.PICA_FIJA);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 3, (504*3));
+        $j.actualizarEstado($j.getDigitoCuatro(), 0, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 0, (504/3));
+        $j.actualizarEstado($j.getDigitoCuatro(), 1, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 1, (504/3));
+        $j.actualizarEstado($j.getDigitoCuatro(), 2, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 2, (504/3));
+        
+          
+end
+
+
+rule "Una fija y 2 picas"
+	when
+		$j : Jugada (picas==2, fijas==1)
+	then
+        $j.actualizarEstado($j.getDigitoUno(), 0, Casilla.PICA_FIJA);
+        $j.actualizarPuntaje($j.getDigitoUno(), 0, (504*3)); 
+        $j.actualizarEstado($j.getDigitoUno(), 1, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoUno(), 1, (504/2));  
+        $j.actualizarEstado($j.getDigitoUno(), 2, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoUno(), 2, (504/2));
+        $j.actualizarEstado($j.getDigitoUno(), 3, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoUno(), 3, (504/2));
+        
+        $j.actualizarEstado($j.getDigitoDos(), 1, Casilla.PICA_FIJA);
+        $j.actualizarPuntaje($j.getDigitoDos(), 1, (504*3));
+        $j.actualizarEstado($j.getDigitoDos(), 0, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoDos(), 0, (504/2));
+        $j.actualizarEstado($j.getDigitoDos(), 2, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoDos(), 2, (504/2));
+        $j.actualizarEstado($j.getDigitoDos(), 3, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoDos(), 3, (504/2));
+        
+        $j.actualizarEstado($j.getDigitoTres(), 2, Casilla.PICA_FIJA);
+        $j.actualizarPuntaje($j.getDigitoTres(), 2, (504*3));
+        $j.actualizarEstado($j.getDigitoTres(), 0, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoTres(), 0, (504/2));
+        $j.actualizarEstado($j.getDigitoTres(), 1, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoTres(), 1, (504/2));
+        $j.actualizarEstado($j.getDigitoTres(), 3, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoTres(), 3, (504/2));
+        
+        $j.actualizarEstado($j.getDigitoCuatro(), 3, Casilla.PICA_FIJA);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 3, (504*3));
+        $j.actualizarEstado($j.getDigitoCuatro(), 0, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 0, (504/2));
+        $j.actualizarEstado($j.getDigitoCuatro(), 1, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 1, (504/2));
+        $j.actualizarEstado($j.getDigitoCuatro(), 2, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 2, (504/2));
+               
 end

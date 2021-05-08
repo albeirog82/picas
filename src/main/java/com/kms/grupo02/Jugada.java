@@ -1,11 +1,6 @@
 package com.kms.grupo02;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.IntStream;
-
-import org.dmg.pmml.pmml_4_2.descr.Matrix;
 
 public class Jugada {
 	
@@ -39,10 +34,11 @@ public class Jugada {
 		
 		Tablero tablero = Tablero.getInstance();
 		
-		if (this.digitoUno == null && this.digitoDos == null){
+		if (this.digitoUno == null && this.digitoDos == null && this.digitoTres == null && this.digitoCuatro == null){
 			for(int valores = 0; valores < tablero.getMatriz().length; valores++ ){
 				if(tablero.getMatriz()[valores][0].getEstado().equals(Casilla.SIN_USAR)){
 					this.digitoUno = valores; 
+					System.out.println("digitoUno por SIN USAR");
 					break;
 				}
 			}
@@ -50,44 +46,81 @@ public class Jugada {
 			for(int valores = 0; valores < tablero.getMatriz().length; valores++ ){
 				if(tablero.getMatriz()[valores][1].getEstado().equals(Casilla.SIN_USAR) && this.digitoUno != valores){
 					this.digitoDos = valores; 
+					System.out.println("digitoDos por SIN USAR");
 					break;
 				}
 			}
 			
-			if (this.digitoUno == null && this.digitoDos == null){
+			for(int valores = 0; valores < tablero.getMatriz().length; valores++ ){
+				if(tablero.getMatriz()[valores][2].getEstado().equals(Casilla.SIN_USAR) && this.digitoUno != valores 
+						&& this.digitoDos != valores){
+					this.digitoTres = valores; 
+					System.out.println("digitoTres por SIN USAR");
+					break;
+				}
+			}
+			
+			for(int valores = 0; valores < tablero.getMatriz().length; valores++ ){
+				if(tablero.getMatriz()[valores][3].getEstado().equals(Casilla.SIN_USAR) && this.digitoUno != valores 
+						&& this.digitoDos != valores && this.digitoTres != valores){
+					this.digitoCuatro = valores; 
+					System.out.println("digitoCuatro por SIN USAR");
+					break;
+				}
+			}
+			
+			if(this.digitoUno == null){
 				this.digitoUno = 0;
 				for(int i = 0; i < tablero.getMatriz().length; i++ ){
 					if(tablero.getMatriz()[i][0].getPuntaje() > tablero.getMatriz()[this.digitoUno][0].getPuntaje())  {
 						this.digitoUno = i; 
+						System.out.println("digitoUno por Mayor");
 					}
 				}
-				
+			}
+
+			if(this.digitoDos == null){
 				this.digitoDos = 0;
 				for(int i = 0; i < tablero.getMatriz().length; i++ ){
 					if(tablero.getMatriz()[i][1].getPuntaje() > tablero.getMatriz()[this.digitoDos][1].getPuntaje())  {
 						this.digitoDos = i; 
+						System.out.println("digitoDos por Mayor");
 					}
 				}
-				
+			}
+			
+			if(this.digitoTres == null){
+				this.digitoTres = 0;
+				for(int i = 0; i < tablero.getMatriz().length; i++ ){
+					if(tablero.getMatriz()[i][2].getPuntaje() > tablero.getMatriz()[this.digitoTres][2].getPuntaje())  {
+						this.digitoTres = i; 
+						System.out.println("digitoTres por Mayor");
+					}
+				}								
+			}
+			
+			if(this.digitoCuatro == null){
+				this.digitoCuatro = 0;
+				for(int i = 0; i < tablero.getMatriz().length; i++ ){
+					if(tablero.getMatriz()[i][3].getPuntaje() > tablero.getMatriz()[this.digitoCuatro][3].getPuntaje()){
+						this.digitoCuatro = i; 
+						System.out.println("digitoCuatro por Mayor");
+					}
+				}								
 			}
 			
 		}else{
-			this.digitoDos = this.digitoDos + 1; 
-			for(int i = this.digitoDos; i < tablero.getMatriz().length; i++ ){
-				if(tablero.getMatriz()[i][1].getPuntaje() > tablero.getMatriz()[this.digitoDos][1].getPuntaje())  {
-					this.digitoDos = i; 
+			this.digitoCuatro = this.digitoCuatro + 1; 
+			for(int i = this.digitoCuatro; i < tablero.getMatriz().length; i++ ){
+				if(tablero.getMatriz()[i][3].getPuntaje() > tablero.getMatriz()[this.digitoCuatro][3].getPuntaje())  {
+					//Verificar que no sea igual a otro de los digitos
+					if(i != this.digitoUno && i != this.digitoDos && i != this.digitoTres ){
+						System.out.println("digitoCuatro por iteracion");
+						this.digitoCuatro = i;
+					}
 				}
 			}
 		}
-		
-				
-		
-		
-		System.out.println("Matriz:");
-		
-		tablero.imprimirMatriz();
-		
-		System.out.println("El valor a adivinar es " + this.digitoUno + this.digitoDos + " ?");
 		
 	}
 	
@@ -115,8 +148,10 @@ public class Jugada {
 	public boolean esDuplicada(List<Jugada> listaJugadas){
 		for (int i = 0; i < listaJugadas.size(); i++) {
 		    Jugada jugada = listaJugadas.get(i);
-		    if(jugada.digitoUno == this.digitoUno && jugada.digitoDos == this.digitoDos ){
-		    	System.out.println("Se ha encontrado una jugada duplicada");
+		    if(jugada.digitoUno == this.digitoUno && jugada.digitoDos == this.digitoDos 
+		    		&& jugada.digitoTres == this.digitoTres && jugada.digitoCuatro == this.digitoCuatro ){
+		    	System.out.println("Se ha encontrado una jugada duplicada " +  this.digitoUno + this.digitoDos + 
+						this.digitoTres + this.digitoCuatro );
 		    	return true;
 		    }
 		}
@@ -128,6 +163,8 @@ public class Jugada {
 		this.fijas = fijas;
 		this.digitoUno = null; 
 		this.digitoDos = null; 
+		this.digitoTres = null; 
+		this.digitoCuatro = null; 
 	}
 	
 	public int getDigitoUno() {
@@ -176,6 +213,20 @@ public class Jugada {
 
 	public void setFijas(int fijas) {
 		this.fijas = fijas;
+	}
+
+	public void verJugada() {
+		
+		Tablero tablero = Tablero.getInstance();
+		
+		System.out.println("Matriz:");
+		
+		tablero.imprimirMatriz();
+		
+		System.out.println("El valor a adivinar es " + this.digitoUno + this.digitoDos + 
+				this.digitoTres + this.digitoCuatro + " ?");
+
+		
 	}
 
 	

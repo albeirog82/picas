@@ -10,8 +10,8 @@ public class Tablero {
 	private static Tablero instance = new Tablero();
 	
 	private Tablero(){
-		int valores = 10; 
-		int dimension = 2;
+		this.valores = 10; 
+		this.dimension = 4;
 		this.valorPrueba = 0;
 		
 		System.out.println("Iniciar matriz");
@@ -94,7 +94,8 @@ public class Tablero {
 	
 	public void imprimirMatriz(){
 		for(int i=0; i<this.matriz.length; i++){
-			System.out.println(i + "|" + this.matriz[i][0].getPuntaje() + "|" + this.matriz[i][1].getPuntaje());
+			System.out.println(i + "|" + this.matriz[i][0].getPuntaje() + "|" + this.matriz[i][1].getPuntaje() + 
+					"|" + this.matriz[i][2].getPuntaje() + "|" + this.matriz[i][3].getPuntaje());
 		}
 	}
 	
