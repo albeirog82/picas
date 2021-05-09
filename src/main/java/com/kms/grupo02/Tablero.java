@@ -1,30 +1,24 @@
 package com.kms.grupo02;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tablero {
 	
 	public Casilla[][] matriz;
     Integer valores; 
     Integer dimension;
-	Integer valorPrueba;
+    List<Jugada> listaJugadas = new ArrayList<Jugada>();
     
 	private static Tablero instance = new Tablero();
 	
 	private Tablero(){
 		this.valores = 10; 
 		this.dimension = 4;
-		this.valorPrueba = 0;
-		
+				
 		System.out.println("Iniciar matriz");
  	    this.matriz = crear_matriz_iniciada(valores, dimension);
 		System.out.println("Matriz creada");
-	}
-	
-	public Integer getValorPrueba() {
-		return valorPrueba;
-	}
-
-	public void setValorPrueba(Integer valorPrueba) {
-		this.valorPrueba = valorPrueba;
 	}
 
 	// 10, 2
@@ -95,9 +89,20 @@ public class Tablero {
 	public void imprimirMatriz(){
 		for(int i=0; i<this.matriz.length; i++){
 			System.out.println(i + "|" + this.matriz[i][0].getPuntaje() + "|" + this.matriz[i][1].getPuntaje() + 
-					"|" + this.matriz[i][2].getPuntaje() + "|" + this.matriz[i][3].getPuntaje());
+					"|" + this.matriz[i][2].getPuntaje() + "|" + this.matriz[i][3].getPuntaje() +
+					" || " + this.matriz[i][0].getEstado() + "|" + this.matriz[i][1].getEstado() + 
+					"|" + this.matriz[i][2].getEstado() + "|" + this.matriz[i][3].getEstado());
 		}
 	}
+
+	public List<Jugada> getListaJugadas() {
+		return listaJugadas;
+	}
+
+	public void setListaJugadas(List<Jugada> listaJugadas) {
+		this.listaJugadas = listaJugadas;
+	}
+	
 	
 	
 	
