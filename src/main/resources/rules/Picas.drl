@@ -281,3 +281,49 @@ rule "3 picas"
         $j.actualizarPuntaje($j.getDigitoCuatro(), 3, 0);        
                   
 end
+
+
+rule "4 picas"
+	when
+		$j : Jugada (picas==4, fijas==0, perdioFijas==false, aumentoFijas==false)
+	then
+		System.out.println("Aplicar regla: 4 picas");
+        $j.actualizarEstado($j.getDigitoUno(), 0, Casilla.DESCARTADO);
+        $j.actualizarPuntaje($j.getDigitoUno(), 0, 0);   
+        $j.actualizarEstado($j.getDigitoUno(), 1, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoUno(), 1, (504*(3/3)));  
+        $j.actualizarEstado($j.getDigitoUno(), 2, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoUno(), 2, (504*(3/3)));
+        $j.actualizarEstado($j.getDigitoUno(), 3, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoUno(), 3, (504*(3/3)));  
+        
+        $j.actualizarEstado($j.getDigitoDos(), 0, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoDos(), 0, (504*(3/3)));   
+        $j.actualizarEstado($j.getDigitoDos(), 1, Casilla.DESCARTADO);
+        $j.actualizarPuntaje($j.getDigitoDos(), 1, 0);  
+        $j.actualizarEstado($j.getDigitoDos(), 2, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoDos(), 2, (504*(3/3)));
+        $j.actualizarEstado($j.getDigitoDos(), 3, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoDos(), 3, (504*(3/3)));
+        
+        $j.actualizarEstado($j.getDigitoTres(), 0, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoTres(), 0, (504*(3/3)));   
+        $j.actualizarEstado($j.getDigitoTres(), 1, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoTres(), 1, (504*(3/3)));  
+        $j.actualizarEstado($j.getDigitoTres(), 2, Casilla.DESCARTADO);
+        $j.actualizarPuntaje($j.getDigitoTres(), 2, 0);
+        $j.actualizarEstado($j.getDigitoTres(), 3, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoTres(), 3, (504*(3/3)));
+        
+        $j.actualizarEstado($j.getDigitoCuatro(), 0, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 0, (504*(3/3)));   
+        $j.actualizarEstado($j.getDigitoCuatro(), 1, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 1, (504*(3/3)));  
+        $j.actualizarEstado($j.getDigitoCuatro(), 2, Casilla.PICA);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 2, (504*(3/3)));
+        $j.actualizarEstado($j.getDigitoCuatro(), 3, Casilla.DESCARTADO);
+        $j.actualizarPuntaje($j.getDigitoCuatro(), 3, 0);        
+        
+        $j.descartarResto();
+                  
+end

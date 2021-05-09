@@ -187,16 +187,7 @@ public class Jugada {
 							}
 						}
 					}
-					System.out.println("Digito dos actual " + this.digitoDos);
-					/*this.digitoDos = 0;
-					for(int i = 0; i < tablero.getMatriz().length; i++ ){
-						if(i != this.digitoUno){
-							if(tablero.getMatriz()[i][1].getPuntaje() > tablero.getMatriz()[this.digitoDos][1].getPuntaje())  {
-								this.digitoDos = i; 
-								System.out.println("digitoDos por Mayor recalculado");
-							}
-						}						
-					}*/					
+					System.out.println("Digito dos actual " + this.digitoDos);	
 					
 				}
 
@@ -447,6 +438,33 @@ public class Jugada {
 			
 			
 		}
+		
+	}
+	
+	
+	
+	public void descartarResto(){
+		
+		System.out.println("descartar resto");
+		
+		Boolean excluir = false; 
+		
+		Tablero tablero = Tablero.getInstance();
+		
+		for (int valores = 0; valores < tablero.getMatriz().length; valores++ ){
+			
+			excluir = (this.digitoUno == valores) || (this.digitoDos == valores) || (this.digitoTres == valores) || 
+					(this.digitoCuatro == valores); 
+			System.out.println("boolean excluir " + excluir );
+			if(!excluir){
+				System.out.println("descartando.....  " + valores );
+				descartarHorizontal(valores, 0);
+		        this.actualizarEstado(valores, 0, Casilla.DESCARTADO);
+		        this.actualizarPuntaje(valores, 0, 0);
+			}
+		}
+		
+		
 		
 	}
 	

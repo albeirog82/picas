@@ -1,0 +1,171 @@
+[1mdiff --git a/src/main/java/com/kms/grupo02/Jugada.java b/src/main/java/com/kms/grupo02/Jugada.java[m
+[1mindex 5d2d9a5..9ff6542 100644[m
+[1m--- a/src/main/java/com/kms/grupo02/Jugada.java[m
+[1m+++ b/src/main/java/com/kms/grupo02/Jugada.java[m
+[36m@@ -187,16 +187,7 @@[m [mpublic class Jugada {[m
+ 							}[m
+ 						}[m
+ 					}[m
+[31m-					System.out.println("Digito dos actual " + this.digitoDos);[m
+[31m-					/*this.digitoDos = 0;[m
+[31m-					for(int i = 0; i < tablero.getMatriz().length; i++ ){[m
+[31m-						if(i != this.digitoUno){[m
+[31m-							if(tablero.getMatriz()[i][1].getPuntaje() > tablero.getMatriz()[this.digitoDos][1].getPuntaje())  {[m
+[31m-								this.digitoDos = i; [m
+[31m-								System.out.println("digitoDos por Mayor recalculado");[m
+[31m-							}[m
+[31m-						}						[m
+[31m-					}*/					[m
+[32m+[m					[32mSystem.out.println("Digito dos actual " + this.digitoDos);[m[41m	[m
+ 					[m
+ 				}[m
+ [m
+[36m@@ -450,6 +441,33 @@[m [mpublic class Jugada {[m
+ 		[m
+ 	}[m
+ 	[m
+[32m+[m[41m	[m
+[32m+[m[41m	[m
+[32m+[m	[32mpublic void descartarResto(){[m
+[32m+[m[41m		[m
+[32m+[m		[32mSystem.out.println("descartar resto");[m
+[32m+[m[41m		[m
+[32m+[m		[32mBoolean excluir = false;[m[41m [m
+[32m+[m[41m		[m
+[32m+[m		[32mTablero tablero = Tablero.getInstance();[m
+[32m+[m[41m		[m
+[32m+[m		[32mfor (int valores = 0; valores < tablero.getMatriz().length; valores++ ){[m
+[32m+[m[41m			[m
+[32m+[m			[32mexcluir = (this.digitoUno == valores) || (this.digitoDos == valores) || (this.digitoTres == valores) ||[m[41m [m
+[32m+[m					[32m(this.digitoCuatro == valores);[m[41m [m
+[32m+[m			[32mSystem.out.println("boolean excluir " + excluir );[m
+[32m+[m			[32mif(!excluir){[m
+[32m+[m				[32mSystem.out.println("descartando.....  " + valores );[m
+[32m+[m				[32mdescartarHorizontal(valores, 0);[m
+[32m+[m		[32m        this.actualizarEstado(valores, 0, Casilla.DESCARTADO);[m
+[32m+[m		[32m        this.actualizarPuntaje(valores, 0, 0);[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m[41m		[m
+[32m+[m[41m		[m
+[32m+[m[41m		[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+ 	public Boolean getAumentoFijas() {[m
+ 		return aumentoFijas;[m
+ 	}[m
+[1mdiff --git a/src/main/resources/rules/Picas.drl b/src/main/resources/rules/Picas.drl[m
+[1mindex a0c4101..41cffe5 100644[m
+[1m--- a/src/main/resources/rules/Picas.drl[m
+[1m+++ b/src/main/resources/rules/Picas.drl[m
+[36m@@ -280,4 +280,50 @@[m [mrule "3 picas"[m
+         $j.actualizarEstado($j.getDigitoCuatro(), 3, Casilla.DESCARTADO);[m
+         $j.actualizarPuntaje($j.getDigitoCuatro(), 3, 0);        [m
+                   [m
+[32m+[m[32mend[m
+[32m+[m
+[32m+[m
+[32m+[m[32mrule "4 picas"[m
+[32m+[m	[32mwhen[m
+[32m+[m		[32m$j : Jugada (picas==4, fijas==0, perdioFijas==false, aumentoFijas==false)[m
+[32m+[m	[32mthen[m
+[32m+[m		[32mSystem.out.println("Aplicar regla: 4 picas");[m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoUno(), 0, Casilla.DESCARTADO);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoUno(), 0, 0);[m[41m   [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoUno(), 1, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoUno(), 1, (504*(3/3)));[m[41m  [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoUno(), 2, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoUno(), 2, (504*(3/3)));[m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoUno(), 3, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoUno(), 3, (504*(3/3)));[m[41m  [m
+[32m+[m[41m        [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoDos(), 0, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoDos(), 0, (504*(3/3)));[m[41m   [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoDos(), 1, Casilla.DESCARTADO);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoDos(), 1, 0);[m[41m  [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoDos(), 2, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoDos(), 2, (504*(3/3)));[m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoDos(), 3, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoDos(), 3, (504*(3/3)));[m
+[32m+[m[41m        [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoTres(), 0, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoTres(), 0, (504*(3/3)));[m[41m   [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoTres(), 1, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoTres(), 1, (504*(3/3)));[m[41m  [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoTres(), 2, Casilla.DESCARTADO);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoTres(), 2, 0);[m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoTres(), 3, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoTres(), 3, (504*(3/3)));[m
+[32m+[m[41m        [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoCuatro(), 0, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoCuatro(), 0, (504*(3/3)));[m[41m   [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoCuatro(), 1, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoCuatro(), 1, (504*(3/3)));[m[41m  [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoCuatro(), 2, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoCuatro(), 2, (504*(3/3)));[m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoCuatro(), 3, Casilla.DESCARTADO);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoCuatro(), 3, 0);[m[41m        [m
+[32m+[m[41m        [m
+[32m+[m[32m        $j.descartarResto();[m
+[32m+[m[41m                  [m
+ end[m
+\ No newline at end of file[m
+[1mdiff --git a/target/classes/com/kms/grupo02/Jugada.class b/target/classes/com/kms/grupo02/Jugada.class[m
+[1mindex c9f7f5e..5489bfc 100644[m
+Binary files a/target/classes/com/kms/grupo02/Jugada.class and b/target/classes/com/kms/grupo02/Jugada.class differ
+[1mdiff --git a/target/classes/rules/Picas.drl b/target/classes/rules/Picas.drl[m
+[1mindex a0c4101..41cffe5 100644[m
+[1m--- a/target/classes/rules/Picas.drl[m
+[1m+++ b/target/classes/rules/Picas.drl[m
+[36m@@ -280,4 +280,50 @@[m [mrule "3 picas"[m
+         $j.actualizarEstado($j.getDigitoCuatro(), 3, Casilla.DESCARTADO);[m
+         $j.actualizarPuntaje($j.getDigitoCuatro(), 3, 0);        [m
+                   [m
+[32m+[m[32mend[m
+[32m+[m
+[32m+[m
+[32m+[m[32mrule "4 picas"[m
+[32m+[m	[32mwhen[m
+[32m+[m		[32m$j : Jugada (picas==4, fijas==0, perdioFijas==false, aumentoFijas==false)[m
+[32m+[m	[32mthen[m
+[32m+[m		[32mSystem.out.println("Aplicar regla: 4 picas");[m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoUno(), 0, Casilla.DESCARTADO);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoUno(), 0, 0);[m[41m   [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoUno(), 1, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoUno(), 1, (504*(3/3)));[m[41m  [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoUno(), 2, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoUno(), 2, (504*(3/3)));[m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoUno(), 3, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoUno(), 3, (504*(3/3)));[m[41m  [m
+[32m+[m[41m        [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoDos(), 0, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoDos(), 0, (504*(3/3)));[m[41m   [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoDos(), 1, Casilla.DESCARTADO);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoDos(), 1, 0);[m[41m  [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoDos(), 2, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoDos(), 2, (504*(3/3)));[m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoDos(), 3, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoDos(), 3, (504*(3/3)));[m
+[32m+[m[41m        [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoTres(), 0, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoTres(), 0, (504*(3/3)));[m[41m   [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoTres(), 1, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoTres(), 1, (504*(3/3)));[m[41m  [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoTres(), 2, Casilla.DESCARTADO);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoTres(), 2, 0);[m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoTres(), 3, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoTres(), 3, (504*(3/3)));[m
+[32m+[m[41m        [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoCuatro(), 0, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoCuatro(), 0, (504*(3/3)));[m[41m   [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoCuatro(), 1, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoCuatro(), 1, (504*(3/3)));[m[41m  [m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoCuatro(), 2, Casilla.PICA);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoCuatro(), 2, (504*(3/3)));[m
+[32m+[m[32m        $j.actualizarEstado($j.getDigitoCuatro(), 3, Casilla.DESCARTADO);[m
+[32m+[m[32m        $j.actualizarPuntaje($j.getDigitoCuatro(), 3, 0);[m[41m        [m
+[32m+[m[41m        [m
+[32m+[m[32m        $j.descartarResto();[m
+[32m+[m[41m                  [m
+ end[m
+\ No newline at end of file[m
