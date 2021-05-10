@@ -1,0 +1,89 @@
+package com.kms.grupo02
+
+//Bloque reglas de interacción 
+
+rule "Encontro todas las fijas"
+	salience 1000
+	when
+		$j : Jugada(fijas==dimension)
+	then
+		System.out.println("el juego termino")
+end
+
+
+rule "Aumento numero fijas"
+	salience 999
+	when
+		numeroFijasAnterior()<numeroFijasActual()
+	then
+		convetirEnFijaNumeroIncluido()
+end
+
+rule "Disminuyo numero fijas"
+	salience 998
+	when
+		numeroFijasAnterior()>numeroFijasActual()
+	then
+		aplicarBacktracking()
+end
+
+rule "Escribir jugada"
+	when
+		estado == presentarJugada
+	then
+		imprimirJugada()
+		capturarResultados()
+end
+
+rule "Calcule jugada"
+	salience 997
+	when
+		numeroFijasAnterior()==numeroFijasActual()
+	then
+		calcularJugada()
+end
+
+rule "Calcule jugada"
+	salience 997
+	when
+		numeroFijasAnterior()==numeroFijasActual()
+	then
+		calcularJugada()
+end
+
+
+// Procesar resultados 
+
+rule "existen picas"
+	when
+		$j : Jugada (picas!=0)
+	then
+		$j.aplicarPicas(numeroPicas)
+		
+end
+
+
+rule "existen fijas"
+	when
+		$j : Jugada (fijas!=0)
+	then
+		$j.aplicarFijas(numeroFijas)
+		
+end
+
+rule "Nada"
+	when
+		$j : Jugada (picas==0, fijas==0)
+	then
+		$j.descartarDigitos();
+end
+
+
+// Armar la jugada 
+
+rule "procesar comandos"
+	when 
+		hayComandosEnLista()
+	then 
+		ejecutarComando()
+end

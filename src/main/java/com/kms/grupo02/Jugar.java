@@ -62,30 +62,36 @@ public class Jugar {
     	    StatelessKieSession kSession = kContainer.newStatelessKieSession();	
         	//KieSession kSession = kContainer.newKieSession("ksession-rules");
 
-    	    //Remover esta variable	
-    	    int dimension = 2; 
-    	    
-    	    List<Jugada> listaJugadas = new ArrayList<Jugada>();
+    	    Tablero tablero = Tablero.getInstance();
     	    
     	    while(true){
         	    Jugada jugada = new Jugada();
         	    System.out.println("Obtener una jugada");
         	    jugada.crear_valores_jugada(); 
-        	    if(jugada.esDuplicada(listaJugadas)){
+        	    if(jugada.esDuplicada()){
         	    	jugada.crear_valores_jugada();
-        	    }
+        	    }        	    
+        	    jugada.verJugada();
+        	    System.out.println("Jugadas: " + (tablero.getListaJugadas().size()+1));
         	    String picas = JOptionPane.showInputDialog("Cuantas picas identifica:");
             	String fijas = JOptionPane.showInputDialog("Cuantas fijas identifica:");
-            	if(Integer.parseInt(fijas) == dimension){
+            	if(Integer.parseInt(fijas) == tablero.getDimension()){
             		System.out.println("Se adivinó el numero, el juego termino");
             		break; 
             	}else{
             		//Poner las picas y las fijas que el usuario dijo y evaluar las reglas de acuerdo con lo dicho
             		jugada.setPicas(Integer.parseInt(picas));
             		jugada.setFijas(Integer.parseInt(fijas));
+            		jugada.calcularAumentoFijas();
+            		if(!jugada.getAumentoFijas()){
+            			System.out.println("calcular si perdio fijas");
+            			jugada.calcularPerdidaFijas();
+            		}
+            		System.out.println(jugada.toString());
             		kSession.execute(jugada);
             		//Agregar la jugada completada a la lista de jugadas
-            		listaJugadas.add(jugada);
+            		tablero.getListaJugadas().add(jugada);
+            		          		
             	}
     	    }
     	        	        	    
